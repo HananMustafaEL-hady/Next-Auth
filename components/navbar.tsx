@@ -4,7 +4,6 @@ import styles from '../styles/Navbar.module.css'
 function Navbar() {
 
     const [session, loading] = useSession();
-    console.log(session)
     return (
         <nav className={`${styles.header}`}>
             <h1 className={`${styles.logo}`}>

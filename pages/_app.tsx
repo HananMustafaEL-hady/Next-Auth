@@ -4,7 +4,7 @@ import { Provider } from 'next-auth/client'
 import React, { Fragment } from 'react'
 import Navbar from '../components/navbar'
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Provider>
+  return <Provider session={pageProps.session}>
     <Navbar />
     <Component {...pageProps} />
   </Provider>
