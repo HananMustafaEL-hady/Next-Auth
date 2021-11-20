@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+
 interface dataType {
   Fullname: string,
   Email: string,
@@ -8,10 +10,26 @@ interface dataType {
 }
 const FormPage = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
-  console.log(errors)
 
-  function onSubmitForm(values: dataType) {
-    console.log(values);
+  async function onSubmitForm(values: dataType) {
+    let config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+
+    }
+    try {
+
+      const response = await axios.post(`/api/contact`, values, config)
+      if (response.status == 200) {
+        console.log('Success')
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
+
+
 
   }
   return (
