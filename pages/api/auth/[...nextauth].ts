@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import { session } from "next-auth/client";
 import Providers from "next-auth/providers";
 
 export default NextAuth({
@@ -16,5 +17,20 @@ Providers.GitHub({
     },
     jwt:{
         secret:'secret_key123'
+    },
+    callbacks:{
+        async jwt(token,user){
+            if(user){
+               token.id=user.id 
+            }
+            return token
+        },
+        async session(session,token){
+
+            session.user.id=token.id
+
+         return session
+        }
+
     }
 })
