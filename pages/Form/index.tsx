@@ -15,7 +15,7 @@ const FormPage = () => {
 
   }
   return (
-    <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
+    <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen flex justify-center items-center">
       <div className="mx-auto w-full max-w-2xl rounded-xl bg-white p-8 shadow">
         <form
           onSubmit={handleSubmit(onSubmitForm)}
@@ -27,7 +27,9 @@ const FormPage = () => {
             </label>
             <input
               type="text"
-              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2 `}
+              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2 
+                ${errors?.Fullname ? 'ring-2 ring-red-500' : ""}
+              `}
               placeholder="Full name"
               {...register('Fullname', {
                 required: {
@@ -57,11 +59,19 @@ const FormPage = () => {
                   value: 120,
                   message: 'This is too long to be an email'
 
-                }
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'This needs to be a valid email address',
+                },
 
               })}
               type="text"
-              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2 `}
+              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2
+              
+              ${errors?.Email ? 'ring-2 ring-red-500' : null}
+
+              `}
               placeholder="Email"
             />
             <span className="text-red-400 text-sm py-2">{errors?.Email?.message}</span>
@@ -78,7 +88,11 @@ const FormPage = () => {
                   message: 'You must enter your phone'
                 }
               })}
-              className="block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2"
+              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2
+              
+              ${errors?.Phone ? 'ring-2 ring-red-500' : null}
+
+              `}
               placeholder="Phone"
             />
             <span className="text-red-400 text-sm py-2">{errors?.Phone?.message}</span>
@@ -89,7 +103,11 @@ const FormPage = () => {
               Message
             </label>
             <textarea
-              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2 `}
+              rows={4}
+              className={`block w-full shadow py-3 px-4 placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md focus:outline-none focus:ring-2
+              ${errors?.Message ? 'ring-2 ring-red-500' : null}
+
+              `}
               placeholder="Message"
               {...register('Message', {
                 required: {
@@ -100,6 +118,11 @@ const FormPage = () => {
                   value: 1000,
                   message: 'Your message can not be more than 1000 characters'
 
+                }
+                ,
+                minLength: {
+                  value: 50,
+                  message: "Your message must be longer than this! "
                 }
               })}
 
