@@ -22,7 +22,8 @@ const FormPage = () => {
 
       const response = await axios.post(`/api/contact`, values, config)
       if (response.status == 200) {
-        console.log('Success')
+        reset()
+
       }
 
     } catch (err) {
